@@ -18,7 +18,7 @@ const SingleDestination = ({ destination = {} }) => {
               <p className="destinations-one__sub-title">{subTitle}</p>
             )}
             <h2 className="destinations-one__title">
-              <Link href="/destinations-details">{title}</Link>
+              <Link href={`/destinations-details/${code}`}>{title}</Link>
             </h2>
           </div>
           <div className="destinations-one__button">

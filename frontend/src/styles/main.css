@@ -158,12 +158,12 @@
   }
   
   .main-menu-wrapper__logo{
-    padding-top: 22px;
-    padding-bottom: 22.5px;
+    padding-top: 5px;
+    padding-bottom: 5.5px;
   }
 
   .main-menu-wrapper__logo img{
     width: 137px;
-    height: 50px;
+    max-height: 85px;
   }
 

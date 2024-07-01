@@ -1,4 +1,4 @@
-import logo from "@/images/resources/footer-logo.png";
+// import logo from "@/images/resources/footer-logo.png";
 
 const social = [
   { icon: "fa-twitter", link: "" },
@@ -8,10 +8,10 @@ const social = [
 ];
 
 const footerData = {
-  logo,
+  // logo,
   social,
   year: new Date().getFullYear(),
-  author: "Tevily",
+  author: "ISHIP",
   about:
     "Welcome to our Trip and Tour Agency. Lorem simply text amet cing elit.",
   icons: [

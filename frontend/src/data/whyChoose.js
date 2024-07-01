@@ -5,7 +5,7 @@ const whyChoose = {
   bg,
   bg2,
   toggleText: " Trips \n & tours",
-  title: "Why Choose Tevily",
+  title: "Why Choose AN TRAVEL",
   tagline: "Our benefit lists",
   description:
     "There are many variations of passages of Lorem Ipsum is simply free text available in the market for you, but the majority have suffered alteration in some form.",

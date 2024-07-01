@@ -4,7 +4,7 @@ const videoOne = {
   bg,
   videoId: "Get7rqXYrbQ",
   tagline: "Are you ready to travel?",
-  title: "Tevily is a World Leading Online Tour Booking Platform",
+  title: "AN Travel Online Tour Booking Platform",
   iconBoxes: [
     { id: 1, icon: "icon-deer", title: "Wildlife \n Tours" },
     { id: 2, icon: "icon-paragliding", title: "Paragliding \n Tours" },

@@ -1,4 +1,4 @@
-import logo from "@/images/resources/logo-1.png";
+// import logo from "@/images/resources/logo-1.png";
 import logo2 from "@/images/resources/logo-2.png";
 
 const navItems = [
@@ -138,7 +138,7 @@ const headerData = {
   ],
   navItems,
   social,
-  logo,
+  // logo,
   logo2,
 };
 
