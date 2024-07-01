@@ -5,7 +5,9 @@ import { Col, Container, Row } from "react-bootstrap";
 const { title, rate, duration, minAge, tourType, location, date, superb } =
   tourDetailsOne;
 
-const TourDetailsOne = () => {
+const TourDetailsOne = ({tourDetail}) => {
+  const {price,physicalRating,name,countryName,title,duringDays,minAge,finishPlace} = tourDetail;
+  const rating = parseInt(physicalRating);
   return (
     <section className="tour-details">
       <div className="tour-details__top">
@@ -16,7 +18,7 @@ const TourDetailsOne = () => {
                 <div className="tour-details__top-left">
                   <h2 className="tour-details__top-title">{title}</h2>
                   <p className="tour-details__top-rate">
-                    <span>${rate}</span> / Per Person
+                    <span>{price} đ</span> / người
                   </p>
                 </div>
                 <div className="tour-details__top-right">
@@ -27,7 +29,7 @@ const TourDetailsOne = () => {
                       </div>
                       <div className="text">
                         <p>Duration</p>
-                        <h6>{duration}</h6>
+                        <h6>{duringDays}</h6>
                       </div>
                     </li>
                     <li>
@@ -54,7 +56,7 @@ const TourDetailsOne = () => {
                       </div>
                       <div className="text">
                         <p>Location</p>
-                        <h6>{location}</h6>
+                        <h6>{finishPlace}</h6>
                       </div>
                     </li>
                   </ul>
@@ -81,12 +83,12 @@ const TourDetailsOne = () => {
                     </li>
                     <li>
                       <div className="icon">
-                        {Array.from(Array(5)).map((_, i) => (
+                        {Array.from(Array(rating)).map((_, i) => (
                           <i key={i} className="fa fa-star"></i>
                         ))}
                       </div>
                       <div className="text">
-                        <p>{superb} Superb</p>
+                        <p>{physicalRating} Superb</p>
                       </div>
                     </li>
                   </ul>

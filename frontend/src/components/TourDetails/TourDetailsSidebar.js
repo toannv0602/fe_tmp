@@ -97,10 +97,10 @@ const TourDetailsSidebar = () => {
           <div className="tour-details-two__sidebar-form-input">
             <input type="text" placeholder="Where to" name="place" />
           </div>
-          <div className="tour-details-two__sidebar-form-input">
+          {/* <div className="tour-details-two__sidebar-form-input">
             <input type="text" placeholder="When" name="when" />
-          </div>
-          <div className="tour-details-two__sidebar-form-input">
+          </div> */}
+          {/* <div className="tour-details-two__sidebar-form-input">
             <Select
               name="type"
               options={typeOptions}
@@ -117,7 +117,7 @@ const TourDetailsSidebar = () => {
             <div className="tour-details-two__sidebar-form-icon">
               <i className="fa fa-angle-down"></i>
             </div>
-          </div>
+          </div> */}
           <div className="tour-details-two__sidebar-form-input">
             <DatePicker
               selected={startDate}
@@ -129,7 +129,7 @@ const TourDetailsSidebar = () => {
               <i className="fa fa-angle-down"></i>
             </div>
           </div>
-          <div className="tour-details-two__sidebar-form-input">
+          {/* <div className="tour-details-two__sidebar-form-input">
             <Select
               name="ticket"
               options={typeOptions}
@@ -146,7 +146,7 @@ const TourDetailsSidebar = () => {
             <div className="tour-details-two__sidebar-form-icon">
               <i className="fa fa-angle-down"></i>
             </div>
-          </div>
+          </div> */}
           <button
             style={{ zIndex: 0 }}
             type="submit"

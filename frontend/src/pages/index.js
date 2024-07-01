@@ -16,6 +16,7 @@ import WhyChoose from "@/components/WhyChoose/WhyChoose";
 import DestinationsOne from "@/components/DestinationsOne/DestinationsOne";
 import TestimonialOne from "@/components/TestimonialOne/TestimonialOne";
 import GalleryOne from "@/components/GalleryOne/GalleryOne";
+import NewsOne from "@/components/NewsOne/NewsOne";
 import React from "react";
 
 const Home2 = () => {
@@ -28,7 +29,8 @@ const Home2 = () => {
       <PopularTours />
       <WhyChoose />
       <TestimonialOne />
-      <GalleryOne />
+      <NewsOne />
+      {/* <GalleryOne /> */}
       {/* <SingaporeTour /> */}
       {/* <VideoTwo /> */}
       {/* <CounterOne /> */}

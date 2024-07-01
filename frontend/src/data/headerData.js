@@ -39,46 +39,46 @@ const navItems = [
     subNavItems: [
       { 
         id: 1, 
-        name: "Asian", 
-        href: "/tour/as",
+        name: "ASIAN", 
+        href: "/destinations-details/ASIAN",
         subItems: [
           {
             id: 1,
-            name: "Viet nam",
-            href:"/destinations/vn"
+            name: "VIET NAM",
+            href:"/destinations-detail-country/VN"
           },
-          {
-            id: 2,
-            name: "China",
-            href:"/destinations/ch"
-          }
+          // {
+          //   id: 2,
+          //   name: "China",
+          //   href:"/destinations/ch"
+          // }
         ]
       },
-      { 
-        id: 2, 
-        name: "Euro", 
-        href: "/tour/eu",
-        subItems: [
-          {
-            id: 1,
-            name: "France",
-            href:"/destinations/fr"
-          },
-          {
-            id: 2,
-            name: "America",
-            href:"/destinations/am"
-          }
-        ] 
-      },
-      { 
-        id: 3, 
-        name: "Destinations-details", 
-        href: "/destinations-details",
-        subItems: [
+      // { 
+      //   id: 2, 
+      //   name: "Euro", 
+      //   href: "/tour/eu",
+      //   subItems: [
+      //     {
+      //       id: 1,
+      //       name: "France",
+      //       href:"/destinations/fr"
+      //     },
+      //     {
+      //       id: 2,
+      //       name: "America",
+      //       href:"/destinations/am"
+      //     }
+      //   ] 
+      // },
+      // { 
+      //   id: 3, 
+      //   name: "Destinations-details", 
+      //   href: "/destinations-details",
+      //   subItems: [
 
-        ] 
-      },
+      //   ] 
+      // },
     ],
   },
   {

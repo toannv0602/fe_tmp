@@ -10,14 +10,16 @@ import SingleComment from "./SingleComment";
 const { overview, overviewList, faq, superb, reviewScore, comments, reviews } =
   tourDetailsLeft;
 
-const TourDetailsLeft = () => {
+const TourDetailsLeft = ({ tourDetail }) => {
   const [active, setActive] = useState(1);
+
+  const { tripSummary, startPlace, finishPlace, emissionsWarning, reasonLove, importationNote, reasonRight, inclusionsInfoRes, itineraries } = tourDetail;
 
   return (
     <div className="tour-details-two__left">
       <div className="tour-details-two__overview">
         <h3 className="tour-details-two__title">Overview</h3>
-        <p className="tour-details-two__overview-text">{overview}</p>
+        <p className="tour-details-two__overview-text">{tripSummary}</p>
         <div className="tour-details-two__overview-bottom">
           <h3 className="tour-details-two-overview__title">Included/Exclude</h3>
           <div className="tour-details-two__overview-bottom-inner">
@@ -55,53 +57,66 @@ const TourDetailsLeft = () => {
       <div className="tour-details-two__tour-plan">
         <h3 className="tour-details-two__title">Tour Plan</h3>
         <div className="accrodion-grp faq-one-accrodion">
-          {faq.map(({ id, title, text, lists }) => (
+          {itineraries.map(({ stt, title, content, meals, addOnActivities, accommodation, specialInformation }) => (
             <div
-              className={`accrodion overflow-hidden${
-                active === id ? " active" : ""
-              }`}
-              key={id}
+              className={`accrodion overflow-hidden${active === stt ? " active" : ""
+                }`}
+              key={stt}
             >
-              <div onClick={() => setActive(id)} className="accrodion-title">
+              <div onClick={() => setActive(stt)} className="accrodion-title">
                 <h4>
-                  <span>Day {id}</span> {title}
+                  <span>{title}</span>
                 </h4>
               </div>
               <div
-                className={`accrodion-content animated ${
-                  active === id ? "slideInUp d-block" : "slideInDown d-none"
-                }`}
+                className={`accrodion-content animated ${active === stt ? "slideInUp d-block" : "slideInDown d-none"
+                  }`}
               >
                 <div className="inner">
-                  <p>{text}</p>
+                  <p>{content}</p>
                   <ul className="list-unstyled">
-                    {lists.map((list, index) => (
+                    <div className="title-list-unstyled"><i className="fa fa-cutlery" aria-hidden="true"></i> Meals</div>
+                    {meals.map((list, index) => (
                       <li key={index}>{list}</li>
                     ))}
                   </ul>
                 </div>
+
+                <div className="inner">
+                  <ul className="list-unstyled">
+                    <div className="title-list-unstyled"><i className="fa fa-cutlery" aria-hidden="true"></i> Add on activities</div>
+                    {addOnActivities.map((list, index) => (
+                      <li key={index}>{list}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="inner">
+                  <ul className="list-unstyled">
+                    <div className="title-list-unstyled"><i className="fa fa-cutlery" aria-hidden="true"></i> Accommodation</div>
+                    <li>{accommodation}</li>
+                  </ul>
+                </div>
               </div>
+
+
             </div>
           ))}
         </div>
       </div>
+
+      <div className="mt-5">
+        <h3 className="tour-details-two__title">Why you'll love this trip</h3>
+        <p className="tour-details-two__overview-text">{tripSummary}</p>
+      </div>
+
       <div className="tour-details-two__location">
         <h3 className="tour-details-two__title">Tour Plan</h3>
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4562.753041141002!2d-118.80123790098536!3d34.152323469614075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80e82469c2162619%3A0xba03efb7998eef6d!2sCostco+Wholesale!5e0!3m2!1sbn!2sbd!4v1562518641290!5m2!1sbn!2sbd"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.2782922271074!2d106.69008841428892!3d10.776715362273434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752950bf2c1e93%3A0x2c07a3b7a94fb7ab!2sHo%20Chi%20Minh%20City%2C%20Vietnam!5e0!3m2!1sen!2sbd!4v1625098120667!5m2!1sen!2sbd"
           className="tour-details-two__location-map"
           allowFullScreen
         ></iframe>
-      </div>
-      <div className="tour-details-two__related-tours">
-        <h3 className="tour-details-two__title">Tour Plan</h3>
-        <Row>
-          {popularTours.slice(0, 2).map((tour) => (
-            <Col xl={6} key={tour.id}>
-              <SingleTour tour={tour} userSelect />
-            </Col>
-          ))}
-        </Row>
       </div>
       <h3 className="tour-details-two__title review-scores__title">
         Review Scores

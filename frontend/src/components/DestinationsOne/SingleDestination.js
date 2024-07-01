@@ -22,8 +22,8 @@ const SingleDestination = ({ destination = {} }) => {
             </h2>
           </div>
           <div className="destinations-one__button">
-            <Link href={`/tours/${code}`} passHref>
-              <a href="/tours/">{tours} tours</a>
+            <Link href={`/destinations-details/${code}`} passHref>
+              <a href="/destinations-details/">{tours} tours</a>
             </Link>
           </div>
         </div>

@@ -1,6 +1,6 @@
 const popularToursTwo = {
   tagline: "Featured tours",
-  title: "Most Popular Tours",
+  title: "Our Tours",
   popularTours: [
     {
       id: 1,

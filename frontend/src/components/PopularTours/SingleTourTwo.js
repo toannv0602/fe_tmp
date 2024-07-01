@@ -1,10 +1,20 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { Image } from "react-bootstrap";
 
-const SingleTourTwo = ({tour = {}, userSelect = false }) => {
-  const { mainImage,styleName, code, duringDays, finishPlace, name,price,startPlace, meta=["3 Days", "12+", styleName] } = tour;
+const ImageWithFallback = ({ src, fallbackSrc, alt }) => {
+  const [imgSrc, setImgSrc] = useState(src);
 
+  const handleImageError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return <img src={imgSrc} onError={handleImageError} alt={alt} />;
+};
+
+const SingleTourTwo = ({tour = {}, userSelect = false }) => {
+  const { id,mainImage,styleName, code, duringDays, finishPlace, name,price,startPlace, meta=["3 Days", "12+", "HA NOI - HCM"] } = tour;
+  const defaultImageUrl = require(`@/images/resources/popular-tours__img-1.jpg`).default.src;
   return (
     <div>
       <div
@@ -12,10 +22,11 @@ const SingleTourTwo = ({tour = {}, userSelect = false }) => {
         className="popular-tours__single"
       >
         <div className="popular-tours__img">
-          <Image
+          {/* <Image
             src={mainImage}
             alt=""
-          />
+          /> */}
+          <ImageWithFallback src={mainImage} fallbackSrc={defaultImageUrl} alt="Test Image" />
           <div className="popular-tours__icon">
             <Link href="/tour-details">
               <a>
@@ -29,7 +40,7 @@ const SingleTourTwo = ({tour = {}, userSelect = false }) => {
             <i className="fa fa-star"></i> 8 Superb
           </div>
           <h3 className="popular-tours__title">
-            <Link href="/tour-details">{name}</Link>
+            <Link href={`/tour-details/${id}`}>{name}</Link>
           </h3>
           <p className="popular-tours__rate">
             <span>{price} đ</span>
@@ -37,7 +48,7 @@ const SingleTourTwo = ({tour = {}, userSelect = false }) => {
           <ul className="popular-tours__meta list-unstyled">
             {meta.map((item, index) => (
               <li key={index}>
-                <Link href="/tour-details">{item}</Link>
+                <Link href={`/tour-details/${id}`}>{item}</Link>
               </li>
             ))}
           </ul>

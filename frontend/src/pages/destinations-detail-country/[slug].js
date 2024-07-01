@@ -1,12 +1,14 @@
 import React from "react";
-import { getRegionTours, getRegionToursInfo } from "@/hooks/apis/tour";
+import { getRegionTours, getRegionToursInfo,getCountryToursInfo } from "@/hooks/apis/destinations";
 // import Tours from "@/components/PopularTours/Tours";
 import Layout from "@/components/Layout/Layout";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import TourDescription from "@/components/PopularTours/TourDescription";
-import PopularToursTwo from "@/components/PopularTours/PopularToursTwo";
+import PopularToursCountry from "@/components/PopularTours/PopularToursCountry";
 import Exception from "@/components/ExceptionPage/Exception";
 // import { tourDescriptionFake } from "@/data/tourDescriptionFake";
+import Video from "@/components/PopularTours/Video";
+import TestimonialOne from "@/components/TestimonialOne/TestimonialOne";
 
 export async function getServerSideProps({ params }) {
   const { slug } = params;
@@ -16,8 +18,8 @@ export async function getServerSideProps({ params }) {
   }
 
   let check = false;
-  let responseRegionInfo = await getRegionToursInfo(dataCallRegionInfo);
-  if (responseRegionInfo != undefined && responseRegionInfo.status == 200) {
+  let responseRegionInfo = await getCountryToursInfo(dataCallRegionInfo);
+  if (responseRegionInfo != undefined && responseRegionInfo.code == 200) {
     check = true;
   } else {
     responseRegionInfo = 1;
@@ -33,14 +35,15 @@ export async function getServerSideProps({ params }) {
 }
 
 const TourPage = ({ tourSlug, code, check }) => {
-  console.log(check);
+  console.log(tourSlug);
   if (check == true) {
     return (
       <Layout pageTitle="Tours">
         <PageHeader title="Popular Tours" page="Tours" />
         {/* <Tours tourSlug={tourSlug}/> */}
         <TourDescription tourSlug={tourSlug} />
-        <PopularToursTwo code={code} />
+        <PopularToursCountry code={code} />
+        <TestimonialOne />
       </Layout>
     );
   } else {
@@ -50,12 +53,6 @@ const TourPage = ({ tourSlug, code, check }) => {
       </Layout>
     );
   }
-  // return (
-  //   <Layout pageTitle="Tours">
-  //     <PageHeader title="Popular Tours" page="Tours" />
-  //     <Exception />
-  //   </Layout>
-  // );
 };
 
 export default TourPage;

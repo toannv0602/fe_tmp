@@ -79,7 +79,7 @@ const Header = ({ pageTitle }) => {
                   <Link href="/">
                     <a>
                       <Image
-                        src={pageTitle === "Home Two" ? logo2.src : logo.src}
+                        src={logo2.src}
                         alt=""
                       />
                     </a>

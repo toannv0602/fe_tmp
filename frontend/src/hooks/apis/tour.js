@@ -1,21 +1,12 @@
 import axiosInstance from '../../utils/axios';
 
-const getRegionTours = async (data, header = {}) => {
+const getToursDetailById = async (data, header = {}) => {
     return await axiosInstance({
-        url: '/tour/client/list-by-region',
+        url: '/tour/client/all-info',
         method: 'GET',
         params: data,
         headers: header,
     });
 };
 
-const getRegionToursInfo = async (data, header = {}) => {
-    return await axiosInstance({
-        url: '/region/client/get-region-info',
-        method: 'GET',
-        params: data,
-        headers: header,
-    });
-};
-
-export { getRegionTours,getRegionToursInfo };
+export { getToursDetailById };

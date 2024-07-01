@@ -2,11 +2,11 @@ import React from "react";
 import TourDetailsOne from "./TourDetailsOne";
 import TourDetailsTwo from "./TourDetailsTwo";
 
-const TourDetailsPage = () => {
+const TourDetailsPage = ({ tourDetail }) => {
   return (
     <>
-      <TourDetailsOne />
-      <TourDetailsTwo />
+      <TourDetailsOne tourDetail={tourDetail} />
+      <TourDetailsTwo tourDetail={tourDetail} />
     </>
   );
 };
