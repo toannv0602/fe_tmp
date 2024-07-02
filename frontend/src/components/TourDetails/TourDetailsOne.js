@@ -8,6 +8,12 @@ const { title, rate, duration, minAge, tourType, location, date, superb } =
 const TourDetailsOne = ({tourDetail}) => {
   const {price,physicalRating,name,countryName,title,duringDays,minAge,finishPlace} = tourDetail;
   const rating = parseInt(physicalRating);
+  // Format the price above to USD using the locale, style, and currency.
+  let USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+  
   return (
     <section className="tour-details">
       <div className="tour-details__top">
@@ -18,7 +24,7 @@ const TourDetailsOne = ({tourDetail}) => {
                 <div className="tour-details__top-left">
                   <h2 className="tour-details__top-title">{title}</h2>
                   <p className="tour-details__top-rate">
-                    <span>{price} đ</span> / người
+                    <span>{USDollar.format(price)}</span> / người
                   </p>
                 </div>
                 <div className="tour-details__top-right">

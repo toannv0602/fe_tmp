@@ -12,6 +12,13 @@ const ImageWithFallback = ({ src, fallbackSrc, alt }) => {
   return <img src={imgSrc} onError={handleImageError} alt={alt} />;
 };
 
+  // Format the price above to USD using the locale, style, and currency.
+  let USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+  
+
 const SingleTourTwo = ({tour = {}, userSelect = false }) => {
   const { id,mainImage,styleName, code, duringDays, finishPlace, name,price,startPlace, meta=["3 Days", "12+", "HA NOI - HCM"] } = tour;
   const defaultImageUrl = require(`@/images/resources/popular-tours__img-1.jpg`).default.src;
@@ -43,7 +50,7 @@ const SingleTourTwo = ({tour = {}, userSelect = false }) => {
             <Link href={`/tour-details/${id}`}>{name}</Link>
           </h3>
           <p className="popular-tours__rate">
-            <span>{price} đ</span>
+            <span>{USDollar.format(price)}</span>
           </p>
           <ul className="popular-tours__meta list-unstyled">
             {meta.map((item, index) => (
