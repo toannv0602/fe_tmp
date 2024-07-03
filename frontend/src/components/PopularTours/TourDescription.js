@@ -9,7 +9,7 @@ const TourDescription = ({tourSlug}) => {
                 <div className="">
                     <h1 className="text-center u-margin-bottom--1">{data.title}</h1>
                     <div className="">
-                        <img className="tours-detail-img" src={data.bannerImg} />
+                        <img className="tours-detail-img" src={data.bannerImg} alt="Banner Image"/>
                     </div>
                 </div>
             </Container>

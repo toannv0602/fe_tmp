@@ -2,18 +2,20 @@ import { tourDetailsOne } from "@/data/tourDetailsPage";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
+
 const { title, rate, duration, minAge, tourType, location, date, superb } =
   tourDetailsOne;
 
 const TourDetailsOne = ({tourDetail}) => {
-  const {price,physicalRating,name,countryName,title,duringDays,minAge,finishPlace} = tourDetail;
-  const rating = parseInt(physicalRating);
+
   // Format the price above to USD using the locale, style, and currency.
   let USDollar = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
   });
-  
+
+  const {price,physicalRating,name,countryName,title,duringDays,minAge,finishPlace} = tourDetail || {};
+  const rating = physicalRating ? parseInt(physicalRating) : 0;
   return (
     <section className="tour-details">
       <div className="tour-details__top">

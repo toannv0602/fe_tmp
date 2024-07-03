@@ -6,6 +6,8 @@ import { Col, Row } from "react-bootstrap";
 import ReviewForm from "./ReviewForm";
 import ReviewScoreBar from "./ReviewScoreBar";
 import SingleComment from "./SingleComment";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee,faBedPulse,faWalking } from '@fortawesome/free-solid-svg-icons';
 
 const { overview, overviewList, faq, superb, reviewScore, comments, reviews } =
   tourDetailsLeft;
@@ -13,7 +15,8 @@ const { overview, overviewList, faq, superb, reviewScore, comments, reviews } =
 const TourDetailsLeft = ({ tourDetail }) => {
   const [active, setActive] = useState(1);
 
-  const { tripSummary, startPlace, finishPlace, emissionsWarning, reasonLove, importationNote, reasonRight, inclusionsInfoRes, itineraries } = tourDetail;
+  const { tripSummary, startPlace, finishPlace, emissionsWarning, reasonLove, importationNote, reasonRight, inclusionsInfoRes, itineraries } = tourDetail || {};
+  const validItineraries = itineraries || [];
 
   return (
     <div className="tour-details-two__left">
@@ -57,7 +60,7 @@ const TourDetailsLeft = ({ tourDetail }) => {
       <div className="tour-details-two__tour-plan">
         <h3 className="tour-details-two__title">Tour Plan</h3>
         <div className="accrodion-grp faq-one-accrodion">
-          {itineraries.map(({ stt, title, content, meals, addOnActivities, accommodation, specialInformation }) => (
+          {validItineraries.map(({ stt, title, content, meals, addOnActivities, accommodation, specialInformation }) => (
             <div
               className={`accrodion overflow-hidden${active === stt ? " active" : ""
                 }`}
@@ -75,7 +78,7 @@ const TourDetailsLeft = ({ tourDetail }) => {
                 <div className="inner">
                   <p>{content}</p>
                   <ul className="list-unstyled">
-                    <div className="title-list-unstyled"><i className="fa fa-cutlery" aria-hidden="true"></i> Meals</div>
+                    <div className="title-list-unstyled"><FontAwesomeIcon icon={faCoffee} /> Meals</div>
                     {meals.map((list, index) => (
                       <li key={index}>{list}</li>
                     ))}
@@ -84,7 +87,7 @@ const TourDetailsLeft = ({ tourDetail }) => {
 
                 <div className="inner">
                   <ul className="list-unstyled">
-                    <div className="title-list-unstyled"><i className="fa fa-cutlery" aria-hidden="true"></i> Add on activities</div>
+                    <div className="title-list-unstyled"><FontAwesomeIcon icon={faWalking} /> Add on activities</div>
                     {addOnActivities.map((list, index) => (
                       <li key={index}>{list}</li>
                     ))}
@@ -93,7 +96,7 @@ const TourDetailsLeft = ({ tourDetail }) => {
 
                 <div className="inner">
                   <ul className="list-unstyled">
-                    <div className="title-list-unstyled"><i className="fa fa-cutlery" aria-hidden="true"></i> Accommodation</div>
+                    <div className="title-list-unstyled"><FontAwesomeIcon icon={faBedPulse} /> Accommodation</div>
                     <li>{accommodation}</li>
                   </ul>
                 </div>
@@ -105,10 +108,7 @@ const TourDetailsLeft = ({ tourDetail }) => {
         </div>
       </div>
 
-      <div className="mt-5">
-        <h3 className="tour-details-two__title">Why you'll love this trip</h3>
-        <p className="tour-details-two__overview-text">{tripSummary}</p>
-      </div>
+   
 
       <div className="tour-details-two__location">
         <h3 className="tour-details-two__title">Tour Plan</h3>

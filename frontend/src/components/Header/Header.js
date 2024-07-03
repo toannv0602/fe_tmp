@@ -18,7 +18,7 @@ const Header = ({ pageTitle }) => {
         pageTitle === "Home Two" ? " main-header-two" : ""
       } clearfix`}
     >
-      <div className="main-header__top">
+      {/* <div className="main-header__top">
         <Container>
           <div className="main-header__top-inner clearfix">
             <div className="main-header__top-left">
@@ -53,7 +53,7 @@ const Header = ({ pageTitle }) => {
             </div>
           </div>
         </Container>
-      </div>
+      </div> */}
       <nav
         className={
           scrollTop

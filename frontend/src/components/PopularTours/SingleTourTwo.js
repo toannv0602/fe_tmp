@@ -51,6 +51,7 @@ const SingleTourTwo = ({tour = {}, userSelect = false }) => {
           </h3>
           <p className="popular-tours__rate">
             <span>{USDollar.format(price)}</span>
+
           </p>
           <ul className="popular-tours__meta list-unstyled">
             {meta.map((item, index) => (

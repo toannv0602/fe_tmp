@@ -22,7 +22,8 @@
   --thm-reey-font: "reeyregular";
   --thm-gray: #787780;
   --thm-gray-rgb: 120, 119, 128;
-  --thm-primary: #e8604c;
+  --thm-primary: #003d81;
+  --thm-price: #b02e0d;
   --thm-primary-rgb: 232, 96, 76;
   --thm-black: #313041;
   --thm-black-rgb: 49, 48, 65;
@@ -2220,7 +2221,7 @@ ul {
 .popular-tours__rate span {
   font-size: 20px;
   font-weight: 700;
-  color: var(--thm-primary);
+  color: var(--thm-price);
 }
 
 .popular-tours__meta {

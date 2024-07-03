@@ -72,7 +72,7 @@ const PopularToursTwo = ({ code }) => {
         <Row>
           {dataTour?.data && dataTour.data.map((tour) => (
             <Col
-              // key={tour.id}
+              key={tour.id}
               xl={4}
               lg={6}
               md={6}
