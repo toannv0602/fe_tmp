@@ -33,7 +33,7 @@ const customStyle = {
     ...provided,
     color: "white",
     padding: "4px 20px",
-    backgroundColor: state.isSelected ? "#003d81" : "#313041",
+    backgroundColor: state.isSelected ? "#d25e4a" : "#313041",
     transition: "all 0.4s ease",
     cursor: "pointer",
     borderBottom:
@@ -41,7 +41,7 @@ const customStyle = {
         ? "none"
         : "0.5px solid #ffffff33",
     "&:hover": {
-      backgroundColor: "#003d81",
+      backgroundColor: "#d25e4a",
     },
     borderRadius:
       state.label === typeOptions[typeOptions.length - 1].label
