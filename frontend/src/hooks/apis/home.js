@@ -1,11 +1,19 @@
 import axiosInstance from '../../utils/axios';
 
-const getDataNav = async (header = {}) => {
+const getTopTours = async (header = {}) => {
     return await axiosInstance({
-        url: '/client/menu',
+        url: '/client/home',
         method: 'POST',
         headers: header,
     });
 };
 
-export { getDataNav };
+const getDataNav = async (header = {}) => {
+    return await axiosInstance({
+        url: '/client/menu',
+        method: 'GET',
+        headers: header,
+    });
+};
+
+export { getTopTours,getDataNav };

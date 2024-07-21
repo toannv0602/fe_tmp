@@ -3,6 +3,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import Masonry from "react-masonry-component";
 import SingleDestination from "../DestinationsOne/SingleDestination";
+import TopTours from "../TopTours/TopTours";
 
 const DestinationsPage = () => {
   return (
@@ -13,6 +14,7 @@ const DestinationsPage = () => {
             <SingleDestination key={destination.id} destination={destination} />
           ))}
         </Masonry>
+        <TopTours />
       </Container>
     </section>
   );

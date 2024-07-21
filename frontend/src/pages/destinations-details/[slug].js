@@ -1,5 +1,5 @@
 import React from "react";
-import { getRegionTours, getRegionToursInfo } from "@/hooks/apis/destinations";
+import { getRegionTours, getRegionToursInfo,getCountryToursInfo } from "@/hooks/apis/destinations";
 // import Tours from "@/components/PopularTours/Tours";
 import Layout from "@/components/Layout/Layout";
 import PageHeader from "@/components/PageHeader/PageHeader";
@@ -18,7 +18,7 @@ export async function getServerSideProps({ params }) {
   }
 
   let check = false;
-  let responseRegionInfo = await getRegionToursInfo(dataCallRegionInfo);
+  let responseRegionInfo = await getCountryToursInfo(dataCallRegionInfo);
   if (responseRegionInfo != undefined && responseRegionInfo.code == 200) {
     check = true;
   } else {

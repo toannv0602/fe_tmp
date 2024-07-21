@@ -18,7 +18,7 @@ export async function getServerSideProps({ params }) {
   }
 
   let check = false;
-  let responseRegionInfo = await getCountryToursInfo(dataCallRegionInfo);
+  let responseRegionInfo = await getRegionToursInfo(dataCallRegionInfo);
   if (responseRegionInfo != undefined && responseRegionInfo.code == 200) {
     check = true;
   } else {

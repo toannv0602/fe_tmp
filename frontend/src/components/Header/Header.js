@@ -1,14 +1,21 @@
 import { useRootContext } from "@/context/context";
-import headerData from "@/data/headerData";
+import HeaderData  from "@/data/headerData";
 import useScroll from "@/hooks/useScroll";
 import Link from "next/link";
 import React from "react";
 import { Container, Image } from "react-bootstrap";
 import NavItem from "./NavItem";
-
-const { icons, navItems, social, logo, logo2 } = headerData;
+import { useEffect, useState } from 'react';
 
 const Header = ({ pageTitle }) => {
+
+  const {headerData} = HeaderData();
+  const { icons, navItems, social, logo, logo2 } = headerData;
+
+  useEffect(() => {
+    console.log(headerData);
+  }, [headerData]);
+
   const scrollTop = useScroll(130);
   const { toggleMenu, toggleSearch } = useRootContext();
 
