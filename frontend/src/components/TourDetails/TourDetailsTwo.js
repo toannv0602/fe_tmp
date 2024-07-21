@@ -8,11 +8,15 @@ const TourDetailsTwo = ({tourDetail}) => {
     <section className="tour-details-two">
       <Container>
         <Row>
-          <Col xl={8} lg={7}>
+          {/* <Col xl={8} lg={7}>
             <TourDetailsLeft tourDetail={tourDetail} />
           </Col>
           <Col xl={4} lg={5}>
             <TourDetailsSidebar />
+          </Col> */}
+
+          <Col xl={12} lg={12}>
+            <TourDetailsLeft tourDetail={tourDetail} />
           </Col>
         </Row>
       </Container>

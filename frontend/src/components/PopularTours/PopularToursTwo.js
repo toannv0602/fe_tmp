@@ -25,7 +25,7 @@ const PopularToursTwo = ({ code }) => {
           orderBy: "price"
         }
     
-        const responseRegionTours = await getRegionTours(dataCallListRegionTours);
+        const responseRegionTours = await getCountryTours(dataCallListRegionTours);
         setDataTour(responseRegionTours.data);
         setLoading(false);
       } catch (err) {

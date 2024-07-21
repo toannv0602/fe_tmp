@@ -1,145 +1,115 @@
 // import logo from "@/images/resources/logo-1.png";
 import logo2 from "@/images/resources/logo-2.png";
+import { useEffect, useState } from 'react';
+import { getDataNav } from '@/hooks/apis/home';
 
-const navItems = [
-  {
-    id: 1,
-    name: "Home",
-    href: "/",
-    subNavItems: [
-      // {
-      //   id: 1,
-      //   name: "Home One",
-      //   href: "/",
-      // },
-      // {
-      //   id: 2,
-      //   name: "Home Two",
-      //   href: "/home2",
-      // },
-      // {
-      //   id: 3,
-      //   name: "Header Styles",
-      //   href: "/",
-      //   subItems: [
-      //     {
-      //       id: 1,
-      //       name: "Header One",
-      //       href: "",
-      //     },
-      //     { id: 2, name: "Header Two", href: "" },
-      //   ],
-      // },
-    ],
-  },
-  {
-    id: 2,
-    name: "Destinations",
-    href: "/destinations",
-    subNavItems: [
-      { 
-        id: 1, 
-        name: "ASIAN", 
-        href: "/destinations-details/ASIAN",
-        subItems: [
-          {
-            id: 1,
-            name: "VIET NAM",
-            href:"/destinations-detail-country/VN"
-          },
-          // {
-          //   id: 2,
-          //   name: "China",
-          //   href:"/destinations/ch"
-          // }
-        ]
-      },
-      // { 
-      //   id: 2, 
-      //   name: "Euro", 
-      //   href: "/tour/eu",
-      //   subItems: [
-      //     {
-      //       id: 1,
-      //       name: "France",
-      //       href:"/destinations/fr"
-      //     },
-      //     {
-      //       id: 2,
-      //       name: "America",
-      //       href:"/destinations/am"
-      //     }
-      //   ] 
-      // },
-      // { 
-      //   id: 3, 
-      //   name: "Destinations-details", 
-      //   href: "/destinations-details",
-      //   subItems: [
-
-      //   ] 
-      // },
-    ],
-  },
-  {
-    id: 3,
-    name: "Tours",
-    href: "/tours-list",
-    subNavItems: [
-      // { id: 1, name: "Tours", href: "/tours" },
-      // { id: 2, name: "Tours List", href: "/tours-list" },
-      // { id: 3, name: "Tours Details", href: "/tour-details" },
-    ],
-  },
-  // {
-  //   id: 4,
-  //   name: "Pages",
-  //   href: "",
-  //   subNavItems: [{ id: 1, name: "About", href: "/about" }],
-  // },
-  // {
-  //   id: 5,
-  //   name: "News",
-  //   href: "/news",
-  //   subNavItems: [
-  //     { id: 1, name: "News", href: "/news" },
-  //     { id: 2, name: "News Details", href: "/news-details" },
-  //   ],
-  // },
-  // {
-  //   id: 6,
-  //   name: "Contact",
-  //   href: "/contact",
-  //   subNavItems: [],
-  // },
-];
-
-const social = [
-  { icon: "fa-facebook-square", link: "" },
-  { icon: "fa-twitter", link: "" },
-  { icon: "fa-instagram", link: "" },
-  { icon: "fa-pinterest-p", link: "" },
-];
-
-const headerData = {
-  icons: [
+const HeaderData  = () => {
+  const initialNavItems = [
     {
       id: 1,
-      icon: "icon-phone-call",
-      content: "+ 92 666 999 0000",
-      subHref: "tel",
+      name: "Home",
+      href: "/",
+      subNavItems: [
+      ],
     },
     {
       id: 2,
-      icon: "icon-at",
-      content: "needhelp@company.com",
-      subHref: "mailto",
+      name: "Destinations",
+      href: "/destinations",
+      subNavItems: [
+      ],
     },
-  ],
-  navItems,
-  social,
-  // logo,
-  logo2,
-};
+    {
+      id: 3,
+      name: "Tours",
+      href: "/tours-list",
+      subNavItems: [
+      ],
+    },
+  ];
+  
+  const initialSocial  = [
+    { icon: "fa-facebook-square", link: "" },
+    { icon: "fa-twitter", link: "" },
+    { icon: "fa-instagram", link: "" },
+    { icon: "fa-pinterest-p", link: "" },
+  ];
+  
+  const initialHeaderData   = {
+    icons: [
+      {
+        id: 1,
+        icon: "icon-phone-call",
+        content: "+ 92 666 999 0000",
+        subHref: "tel",
+      },
+      {
+        id: 2,
+        icon: "icon-at",
+        content: "needhelp@company.com",
+        subHref: "mailto",
+      },
+    ],
+    navItems :initialNavItems,
+    social:initialSocial,
+    logo2,
+  };
 
-export default headerData;
+  const [headerData, setHeaderData] = useState(initialHeaderData);
+  const [dataNav, setDataNav] = useState(null);
+  
+  const mapNavDestination = (data) => {
+    return {
+      id: data.id,
+      name: data.name,
+      href: `/destinations-details/${data.code}`,
+      subItems: [
+        ...data?.menuChilds.map(child => ({
+          id: child.id,
+          name: child.name,
+          href: `/destinations-detail-country/${child.code}`
+        }))
+      ]
+    };
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+    // Thay thế URL dưới đây bằng URL API thực tế của bạn
+    const fetchNavBar = async () => {
+      try {
+        const responseNav = await getDataNav();
+        if (isMounted) {
+          setDataNav(responseNav.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchNavBar();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+
+  useEffect(() => {
+    if (dataNav !== null) {
+      const mappedData = mapNavDestination(dataNav[0]);
+      const updatedNavItems = headerData.navItems.map(item => 
+        item.id === 2 ? { ...item, subNavItems: [mappedData] } : item
+      );
+
+      setHeaderData(prevHeaderData => ({
+        ...prevHeaderData,
+        navItems: updatedNavItems,
+      }));
+    }
+  }, [dataNav]);
+
+  return {headerData};
+}
+// export default headerData;
+
+export default HeaderData ;
