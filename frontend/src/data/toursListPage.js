@@ -1,4 +1,10 @@
 const toursListPage = {
+  styles:[
+    "Basix",
+    "Original",
+    "Comfort",
+    "Premium"
+  ],
   categories: [
     "City Tours",
     "HostedTours",
@@ -7,11 +13,11 @@ const toursListPage = {
     "Couple Tours",
   ],
   durations: [
-    "0 - 24 hours",
-    "1 - 2 days",
-    "2 - 3 days",
-    "4 - 5 days",
-    "5 - 10 days",
+    "1 - 2",
+    "2 - 3",
+    "4 - 5",
+    "5 - 10",
+    "> 10"
   ],
   toursList: [
     {

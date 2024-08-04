@@ -4,7 +4,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import SingleTour from "./SingleTour";
 import { useEffect, useRef, useState } from 'react';
-import { getRegionTours, getRegionToursInfo } from "@/hooks/apis/destinations";
+import { getRegionTours, getRegionToursInfo,getCountryTours } from "@/hooks/apis/destinations";
 import SingleTourTwo from "./SingleTourTwo";
 
 const TinySlider = dynamic(() => import("tiny-slider-react"), { ssr: false });
@@ -44,13 +44,13 @@ const PopularTours = () => {
     const fetchDataTour = async () => {
       try {
         const dataCallListRegionTours = {
-          countryCode: "ASIAN",
+          countryCode: "VN",
           page: 1,
           size: 12,
           orderBy: "price"
         }
 
-        const responseRegionTours = await getRegionTours(dataCallListRegionTours);
+        const responseRegionTours = await getCountryTours(dataCallListRegionTours);
         if (isMounted) {
           setDataTour(responseRegionTours.data);
           setLoading(false);
@@ -70,11 +70,11 @@ const PopularTours = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (dataTour !== null) {
-      console.log('Data has been set:', dataTour);
-    }
-  }, [dataTour]);
+  // useEffect(() => {
+  //   if (dataTour !== null) {
+  //     console.log('Data has been set:', dataTour);
+  //   }
+  // }, [dataTour]);
 
 
   return (

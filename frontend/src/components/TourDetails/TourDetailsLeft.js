@@ -1,13 +1,16 @@
 import SingleTour from "@/components/PopularTours/SingleTour";
 import popularTours from "@/data/popularTours";
 import { tourDetailsLeft } from "@/data/tourDetailsPage";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import ReviewForm from "./ReviewForm";
 import ReviewScoreBar from "./ReviewScoreBar";
 import SingleComment from "./SingleComment";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee, faBedPulse, faWalking } from '@fortawesome/free-solid-svg-icons';
+import { getReviewById } from '@/hooks/apis/tour';
+import SingleCommentTwo from "./SingleCommentTwo";
+import { Pagination } from "@mui/material";
 
 const { overview, overviewList, faq, superb, reviewScore, comments, reviews } =
   tourDetailsLeft;
@@ -15,16 +18,68 @@ const { overview, overviewList, faq, superb, reviewScore, comments, reviews } =
 const TourDetailsLeft = ({ tourDetail }) => {
   const [active, setActive] = useState(1);
 
-  const { tripSummary, startPlace, finishPlace, physicalRating, minAge, groupSizeMin, groupSizeMax, code, styleName, emissionsWarning, reasonLove, importationNote, reasonRight, inclusionsInfoRes, itineraries, mainImage } = tourDetail || {};
+  const { id, summarizeReview, tripSummary, startPlace, finishPlace, physicalRating, minAge, groupSizeMin, groupSizeMax, code, styleName, emissionsWarning, reasonLove, importationNote, reasonRight, inclusionsInfoRes, itineraries, mainImage } = tourDetail || {};
   const validItineraries = itineraries || [];
   const urlImg = `http://157.173.218.3/antraveling/api/client/media/image/${mainImage}`;
   const rating = physicalRating ? parseInt(physicalRating) : 0;
 
-  const [isChecked, setIsChecked] = useState(false);
+  const totalVotes = summarizeReview.reduce((acc, obj) => acc + obj.countRate, 0);
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+  const handleCheckboxChange = (event) => {
+    const value = Number(event.target.value);
+    if (event.target.checked) {
+      setDataCallGetReview(prev => {
+        return {
+          ...prev,
+          rateList: [...prev.rateList.filter((star) => star != -1), value]
+        }
+      });
+    } else {
+      setDataCallGetReview(prev => {
+        return {
+          ...prev,
+          rateList: prev.rateList.filter((star) => star !== value).length == 0 ? [-1] :prev.rateList.filter((star) => star !== value)
+        }
+      });
+    }
   };
+
+  const [reviews, setReviews] = useState(null);
+  const [dataCallGetReview, setDataCallGetReview] = useState({
+    tourId: id,
+    page: 1,
+    size: 2,
+    rateList: [-1]
+  })
+
+  console.log(dataCallGetReview);
+
+  useEffect(() => {
+    // Thay thế URL dưới đây bằng URL API thực tế của bạn
+    const fetchDataTour = async () => {
+      try {
+        const responseReviewTours = await getReviewById(dataCallGetReview);
+        setReviews(responseReviewTours.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchDataTour();
+
+  }, [dataCallGetReview]);
+
+  useEffect(() => {
+    console.log(reviews);
+  }, [reviews]);
+
+  const onPageClick = (data, value) => {
+    
+    setDataCallGetReview({ ...dataCallGetReview, page: value,rateList:rateList });
+  };
+
+  const data = reviews ? reviews.data : [];
+  const countReview = reviews ? reviews.totalRecord : 0;
 
   return (
     <div className="tour-details-two__left">
@@ -183,181 +238,74 @@ const TourDetailsLeft = ({ tourDetail }) => {
         Review Scores
       </h3>
 
-
-      <div className="tour-details__review-score">
-        <div className="tour-details__review-score-ave">
-          <div className="my-auto">
-            <h3>{superb}</h3>
-            <p>
-              <i className="fa fa-star"></i> Super
-            </p>
-          </div>
-        </div>
-        <div className="tour-details__review-score__content">
-          {reviewScore.map((review) => (
-            <ReviewScoreBar review={review} key={review.id} />
-          ))}
-        </div>
-      </div>
-
       <div className="l-grid">
         <div className="l-grid__cell l-grid__cell--12-col l-grid__cell--4-col-desktop">
           <div>
             <p className="headline--6 review-filters__title">Filter by rating</p>
             <div className="u-margin-top--1 u-margin-bottom--1">
-              <div className="rating-filter-item">
-                <div className="rating-filter-item__checkbox">
-                  <div className="checkbox u-margin-bottom--0 u-margin-top--0 u-margin-right--0">
-                    <div className="checkbox__group">
-                      {/* onchange them is-dirty vao class checkbox */}
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={handleCheckboxChange}
-                        value={5}
-                        className="checkbox__input"
-                        id="5star-checkbox"
-                      />
+              {[5, 4, 3, 2, 1].map((star) => {
+                // Tìm đối tượng tương ứng với `star`
+                const ratingObj = summarizeReview.find(obj => obj.rate === star) || { countRate: 0 };
+
+                // Tính toán độ rộng của thanh tiến độ
+                const progressWidth = totalVotes > 0 ? (ratingObj.countRate / totalVotes) * 100 + '%' : '0%';
+
+                return (
+                  <div key={star} className="rating-filter-item">
+                    <div className="rating-filter-item__checkbox">
+                      <div
+                        className={`checkbox u-margin-bottom--0 u-margin-top--0 u-margin-right--0 ${dataCallGetReview.rateList.includes(star) ? 'is-dirty' : ''}`}
+                      >
+                        <div className="checkbox__group">
+                          <input
+                            type="checkbox"
+                            checked={dataCallGetReview.rateList.includes(star)}
+                            onChange={handleCheckboxChange}
+                            value={star}
+                            className="checkbox__input"
+                            id={`${star}star-checkbox`}
+                          />
+                        </div>
+                        <label className="checkbox__label" htmlFor={`${star}star-checkbox`}>
+                          <span className="rating-filter-item__checkbox__label"> {star} star </span>
+                        </label>
+                      </div>
                     </div>
-                    <label className="checkbox__label" htmlFor="5star-checkbox">
-                      <span className="rating-filter-item__checkbox__label"> 5 star </span>
-                    </label>
-                  </div>
-                </div>
-                <div className="rating-filter-item__progress">
-                  <span>
-                    <span className="progress-bar">
-                      <span className="progress-bar__inner" style={{width: 80 + '%'}}></span>
-                    </span>
-                    <label className="progress-bar__label u-color--text u-text-align--left"> 988 </label>
-                  </span>
-                </div>
-              </div>
-              <div className="rating-filter-item">
-                <div className="rating-filter-item__checkbox">
-                  <div className="checkbox u-margin-bottom--0 u-margin-top--0 u-margin-right--0">
-                    <div className="checkbox__group">
-                      {/* onchange them is-dirty vao class checkbox */}
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={handleCheckboxChange}
-                        value={5}
-                        className="checkbox__input"
-                        id="5star-checkbox"
-                      />
+                    <div className="rating-filter-item__progress">
+                      <span>
+                        <span className="progress-bar">
+                          <span className="progress-bar__inner" style={{ width: progressWidth }}></span>
+                        </span>
+                        <label className="progress-bar__label u-color--text u-text-align--left">
+                          {ratingObj.countRate}
+                        </label>
+                      </span>
                     </div>
-                    <label className="checkbox__label" htmlFor="5star-checkbox">
-                      <span className="rating-filter-item__checkbox__label"> 5 star </span>
-                    </label>
                   </div>
-                </div>
-                <div className="rating-filter-item__progress">
-                  <span>
-                    <span className="progress-bar">
-                      <span className="progress-bar__inner" style={{width: 80 + '%'}}></span>
-                    </span>
-                    <label className="progress-bar__label u-color--text u-text-align--left"> 988 </label>
-                  </span>
-                </div>
-              </div>
-              <div className="rating-filter-item">
-                <div className="rating-filter-item__checkbox">
-                  <div className="checkbox u-margin-bottom--0 u-margin-top--0 u-margin-right--0">
-                    <div className="checkbox__group">
-                      {/* onchange them is-dirty vao class checkbox */}
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={handleCheckboxChange}
-                        value={5}
-                        className="checkbox__input"
-                        id="5star-checkbox"
-                      />
-                    </div>
-                    <label className="checkbox__label" htmlFor="5star-checkbox">
-                      <span className="rating-filter-item__checkbox__label"> 5 star </span>
-                    </label>
-                  </div>
-                </div>
-                <div className="rating-filter-item__progress">
-                  <span>
-                    <span className="progress-bar">
-                      <span className="progress-bar__inner" style={{width: 80 + '%'}}></span>
-                    </span>
-                    <label className="progress-bar__label u-color--text u-text-align--left"> 988 </label>
-                  </span>
-                </div>
-              </div>
-              <div className="rating-filter-item">
-                <div className="rating-filter-item__checkbox">
-                  <div className="checkbox u-margin-bottom--0 u-margin-top--0 u-margin-right--0">
-                    <div className="checkbox__group">
-                      {/* onchange them is-dirty vao class checkbox */}
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={handleCheckboxChange}
-                        value={5}
-                        className="checkbox__input"
-                        id="5star-checkbox"
-                      />
-                    </div>
-                    <label className="checkbox__label" htmlFor="5star-checkbox">
-                      <span className="rating-filter-item__checkbox__label"> 5 star </span>
-                    </label>
-                  </div>
-                </div>
-                <div className="rating-filter-item__progress">
-                  <span>
-                    <span className="progress-bar">
-                      <span className="progress-bar__inner" style={{width: 80 + '%'}}></span>
-                    </span>
-                    <label className="progress-bar__label u-color--text u-text-align--left"> 988 </label>
-                  </span>
-                </div>
-              </div>
-              <div className="rating-filter-item">
-                <div className="rating-filter-item__checkbox">
-                  <div className="checkbox u-margin-bottom--0 u-margin-top--0 u-margin-right--0">
-                    <div className="checkbox__group">
-                      {/* onchange them is-dirty vao class checkbox */}
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={handleCheckboxChange}
-                        value={5}
-                        className="checkbox__input"
-                        id="5star-checkbox"
-                      />
-                    </div>
-                    <label className="checkbox__label" htmlFor="5star-checkbox">
-                      <span className="rating-filter-item__checkbox__label"> 5 star </span>
-                    </label>
-                  </div>
-                </div>
-                <div className="rating-filter-item__progress">
-                  <span>
-                    <span className="progress-bar">
-                      <span className="progress-bar__inner" style={{width: 80 + '%'}}></span>
-                    </span>
-                    <label className="progress-bar__label u-color--text u-text-align--left"> 988 </label>
-                  </span>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>
-        <div className="l-grid__cell l-grid__cell--12-col l-grid__cell--8-col-desktop"></div>
+        <div className="l-grid__cell l-grid__cell--12-col l-grid__cell--8-col-desktop">
+          <div className="tour-details__review-comment">
+            {reviews && reviews?.data.length > 0 ? (
+              reviews.data.map((comment) => (
+                <SingleCommentTwo comment={comment} />
+              ))
+            ) : (
+              comments.map((comment) => (
+                <SingleComment comment={comment} />
+              ))
+            )}
+          </div>
+          <Pagination
+           count={Math.ceil(reviews && reviews.totalRecord ? reviews?.totalRecord / 2 : 0)} variant="outlined" 
+           onChange={onPageClick}
+          />
+        </div>
       </div>
-
-
-      <div className="tour-details__review-comment">
-        {comments.map((comment) => (
-          <SingleComment comment={comment} key={comment.id} />
-        ))}
-      </div>
-      <ReviewForm reviews={reviews} />
+      {/* <ReviewForm reviews={reviews} /> */}
     </div>
   );
 };

@@ -532,3 +532,23 @@ dl.horizontal dd {
     text-align: center !important;
   }
 }
+
+.tour-details__review-comment-single{
+  margin-bottom: 30px;
+}
+
+.tours-list__content{
+  width: 100%;
+}
+
+.tours-list__img img{
+  height: 100%;
+}
+
+.tours-list{
+  padding-top: 60px;
+}
+
+.radio-button-durattion{
+  margin-left: 15px!important;
+}

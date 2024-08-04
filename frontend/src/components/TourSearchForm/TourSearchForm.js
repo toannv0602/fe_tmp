@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
+import { useRouter } from 'next/router';
 
 const typeOptions = ["Adventure", "Wildlife", "Sightseeing"].map((it) => ({
   value: it,
@@ -63,6 +64,7 @@ const customStyle = {
 const TourSearchForm = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [selected, setSelected] = useState("Adventure");
+  const router = useRouter();
 
   const handleSelect = ({ value }) => {
     setSelected(value);
@@ -72,11 +74,11 @@ const TourSearchForm = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = {
-      type: selected,
-      date: startDate,
+      // type: selected,
+      // date: startDate,
       place: formData.get("place"),
     };
-    console.log(data);
+    router.push(`/tours-list?query=${encodeURIComponent(data.place)}`);
   };
 
   return (

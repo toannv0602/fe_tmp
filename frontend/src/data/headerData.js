@@ -1,4 +1,4 @@
-// import logo from "@/images/resources/logo-1.png";
+import logo from "@/images/resources/logo-1.png";
 import logo2 from "@/images/resources/logo-2.png";
 import { useEffect, useState } from 'react';
 import { getDataNav } from '@/hooks/apis/home';
@@ -15,7 +15,8 @@ const HeaderData  = () => {
     {
       id: 2,
       name: "Destinations",
-      href: "/destinations",
+      // href: "/destinations",
+      href: "",
       subNavItems: [
       ],
     },
@@ -53,6 +54,7 @@ const HeaderData  = () => {
     navItems :initialNavItems,
     social:initialSocial,
     logo2,
+    logo
   };
 
   const [headerData, setHeaderData] = useState(initialHeaderData);

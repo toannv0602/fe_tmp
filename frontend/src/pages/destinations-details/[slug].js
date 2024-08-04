@@ -1,5 +1,4 @@
-import React from "react";
-import { getRegionTours, getRegionToursInfo,getCountryToursInfo } from "@/hooks/apis/destinations";
+import {getCountryToursInfo } from "@/hooks/apis/destinations";
 // import Tours from "@/components/PopularTours/Tours";
 import Layout from "@/components/Layout/Layout";
 import PageHeader from "@/components/PageHeader/PageHeader";
@@ -9,6 +8,8 @@ import Exception from "@/components/ExceptionPage/Exception";
 // import { tourDescriptionFake } from "@/data/tourDescriptionFake";
 import Video from "@/components/PopularTours/Video";
 import TestimonialOne from "@/components/TestimonialOne/TestimonialOne";
+import Preloader from "@/components/Preloader/Preloader";
+import React, { useState, useEffect } from 'react';
 
 export async function getServerSideProps({ params }) {
   const { slug } = params;
@@ -35,7 +36,6 @@ export async function getServerSideProps({ params }) {
 }
 
 const TourPage = ({ tourSlug, code, check }) => {
-  console.log(tourSlug);
   if (check == true) {
     return (
       <Layout pageTitle="Tours">

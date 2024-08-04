@@ -4,10 +4,13 @@ import Link from "next/link";
 import React from "react";
 import { Image } from "react-bootstrap";
 import NavItem from "./NavItem";
+import HeaderData  from "@/data/headerData";
 
 const { social, logo, navItems } = headerData;
 
 const MobileMenu = () => {
+  const {headerData} = HeaderData();
+  const { icons, navItems, social, logo, logo2 } = headerData;
   const { toggleMenu, menuStatus } = useRootContext();
 
   return (
@@ -31,7 +34,7 @@ const MobileMenu = () => {
         <div className="logo-box">
           <Link href="/">
             <a aria-label="logo image">
-              <Image src={logo.src} width={155} alt="" />
+              {/* <Image src={logo.src} width={155} alt="" /> */}
             </a>
           </Link>
         </div>

@@ -8,6 +8,14 @@ const getTopTours = async (header = {}) => {
     });
 };
 
+const getTopReviews = async (header = {}) => {
+    return await axiosInstance({
+        url: '/client/home',
+        method: 'GET',
+        headers: header,
+    });
+};
+
 const getDataNav = async (header = {}) => {
     return await axiosInstance({
         url: '/client/menu',
@@ -16,4 +24,4 @@ const getDataNav = async (header = {}) => {
     });
 };
 
-export { getTopTours,getDataNav };
+export { getTopTours,getDataNav,getTopReviews };

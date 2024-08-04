@@ -14,10 +14,10 @@ import VideoTwo from "@/components/VideoTwo/VideoTwo";
 import PopularTours from "@/components/PopularTours/PopularTours";
 import WhyChoose from "@/components/WhyChoose/WhyChoose";
 import DestinationsOne from "@/components/DestinationsOne/DestinationsOne";
-import TestimonialOne from "@/components/TestimonialOne/TestimonialOne";
 import GalleryOne from "@/components/GalleryOne/GalleryOne";
 import NewsOne from "@/components/NewsOne/NewsOne";
 import React from "react";
+import TestimonialOneHome from "@/components/TestimonialOne/TestimonialOneHome";
 
 const Home2 = () => {
   return (
@@ -28,7 +28,7 @@ const Home2 = () => {
       <PopularToursTwo />
       <PopularTours />
       <WhyChoose />
-      <TestimonialOne />
+      <TestimonialOneHome />
       <NewsOne />
       {/* <GalleryOne /> */}
       {/* <SingaporeTour /> */}
